@@ -78,7 +78,7 @@ class AddToScheduleTimeSlotAdapter( var removeList:(UiUser) -> Unit) :
                 }
             }
 
-//            init {
+////            init {
 //                replace.setOnClickListener {
 //                    val userPosition = adapter.getItem(bindingAdapterPosition)
 //                    adapter.replaceList(userPosition)
