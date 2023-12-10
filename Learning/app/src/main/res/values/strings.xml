@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Learning</string>
+        <string name="title_activity_main">MainActivity</string>
+        <!-- Strings used for fragments for navigation -->
+        <string name="first_fragment_label">First Fragment</string>
+        <string name="second_fragment_label">Second Fragment</string>
+        <string name="next">Next</string>
+        <string name="previous">Previous</string>
+
+        <string name="hello_first_fragment">Hello first fragment</string>
+        <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+        <string name="title_activity_main1">Main1Activity</string>
+        <string name="title_activity_main2">MainActivity2</string>
+        <string name="Namaste">NAMASTE</string>
+        <string name="go">GO</string>
+        <string name="teacher">addTeacher</string>
+        <string name="student">addStudent</string>
+    <string name="click_me">Click Me</string>
+    <string name="user_details">User Details: %1$s, %2$s, %3$s</string>
+
+</resources>

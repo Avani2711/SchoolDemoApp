@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@color/gray">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="parent">
+
+
+            <TextView
+                android:id="@+id/screen"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:background="@color/light"
+                android:orientation="vertical"
+                android:text=""
+                android:textSize="30sp"
+                tools:ignore="HardcodedText,MissingConstraints"
+                tools:layout_editor_absoluteX="-16dp"
+                tools:layout_editor_absoluteY="-12dp" />
+
+            <Button
+                android:id="@+id/add_teacher"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/teal_700"
+                android:gravity="center"
+                android:text="addTeacher"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                app:layout_constraintTop_toBottomOf="@id/screen"
+                tools:ignore="HardcodedText,TextContrastCheck"
+                tools:layout_editor_absoluteX="20dp" />
+
+
+
+            <Button
+                android:id="@+id/click_me"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginStart="176dp"
+                android:layout_marginBottom="188dp"
+                android:gravity="center"
+                android:text="@string/click_me"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/add_student"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/teal_700"
+                android:gravity="center"
+                android:text="addStudent"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                app:layout_constraintTop_toBottomOf="@id/add_teacher"
+                tools:ignore="HardcodedText,TextContrastCheck,TextContrastCheck"
+                tools:layout_editor_absoluteX="20dp" />
+
+            <Button
+                android:id="@+id/sort_student"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/teal_700"
+                android:gravity="center"
+                android:text="sortStudent"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                app:layout_constraintTop_toBottomOf="@id/add_student"
+                tools:ignore="HardcodedText,TextContrastCheck"
+                tools:layout_editor_absoluteX="20dp" />
+
+            <Button
+                android:id="@+id/match_name"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/teal_700"
+                android:gravity="center"
+                android:text="match Name"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                app:layout_constraintTop_toBottomOf="@id/sort_student"
+                tools:ignore="HardcodedText,TextContrastCheck"
+                tools:layout_editor_absoluteX="20dp" />
+
+            <Button
+                android:id="@+id/search_students"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/teal_700"
+                android:gravity="center"
+                android:text="search students"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                app:layout_constraintTop_toBottomOf="@id/sort_student"
+                tools:ignore="HardcodedText,TextContrastCheck"
+                tools:layout_editor_absoluteX="20dp" />
+
+            <EditText
+                android:id="@+id/editSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:hint="Search Name Here"
+                android:iconifiedByDefault="false"
+                android:inputType=""
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/search_students"
+                tools:ignore="HardcodedText,LabelFor,TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/searchTeacher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:hint="Search Teacher Here"
+                android:iconifiedByDefault="false"
+                android:inputType=""
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/search_students"
+                tools:ignore="HardcodedText,LabelFor,TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/searchMatchStudent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:hint="Search Student Here"
+                android:iconifiedByDefault="false"
+                android:inputType=""
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/searchTeacher"
+                tools:ignore="HardcodedText,LabelFor,TextContrastCheck" />
+
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:hint="Enter Your Name"
+                android:inputType=""
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/editSearch"
+                tools:ignore="HardcodedText,LabelFor,TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/dob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:hint="Enter Your Date"
+                android:importantForAutofill="no"
+                android:inputType=""
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                tools:ignore="HardcodedText,LabelFor,RtlHardcoded" />
+
+            <EditText
+                android:id="@+id/teacher_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:hint="Search Teacher Name Here"
+                android:importantForAutofill="no"
+                android:inputType=""
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/dob"
+                tools:ignore="HardcodedText,LabelFor,RtlHardcoded" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="editSearch, searchTeacher, searchMatchStudent, name, dob, teacher_search"/>
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constrainedHeight="true"
+                android:layout_marginTop="20dp"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintTop_toBottomOf="@+id/barrier"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="parent">
+
+
+
+                <Button
+                    android:id="@+id/save"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/teal_700"
+                    android:gravity="center"
+                    android:text="SAVE STUDENT"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:ignore="HardcodedText,TextContrastCheck" />
+
+                <Button
+                    android:id="@+id/saveOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/teal_700"
+                    android:gravity="center"
+                    android:text="SAVE TEACHER"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:ignore="HardcodedText,TextContrastCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--</androidx.core.widget.NestedScrollView>-->
