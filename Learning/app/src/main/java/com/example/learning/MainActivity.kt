@@ -127,18 +127,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.newscreen)
 
 
-        val save: Button = findViewById(R.id.save)
-        val saveOne: Button = findViewById(R.id.saveOne)
-        val screen: TextView = findViewById(R.id.screen)
+//        val save: Button = findViewById(R.id.save)
+//        val saveOne: Button = findViewById(R.id.saveOne)
+//        val screen: TextView = findViewById(R.id.screen)
         val addStudent: Button = findViewById(R.id.add_student)
         val addTeacher: Button = findViewById(R.id.add_teacher)
         val sortStudents: Button = findViewById(R.id.sort_student)
         val matchName: Button = findViewById(R.id.match_name)
         val searchStudents: Button = findViewById(R.id.search_students)
-        val recyclerView: RecyclerView = findViewById(R.id.recycle)
+//        val recyclerView: RecyclerView = findViewById(R.id.recycle)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+//        recyclerView.adapter = adapter
 
         editSearch = findViewById(R.id.editSearch)
         searchTeacher = findViewById(R.id.searchTeacher)

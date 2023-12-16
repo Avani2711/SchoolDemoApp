@@ -17,5 +17,6 @@
         <string name="student">addStudent</string>
     <string name="click_me">Click Me</string>
     <string name="user_details">User Details: %1$s, %2$s, %3$s</string>
+    <string name="vidhya_valley_school">VIDHYA VALLEY SCHOOL</string>
 
 </resources>
