@@ -25,7 +25,7 @@ class AddToScheduleTimeSlotAdapter( var removeList:(UiUser) -> Unit) :
         val context = parent.context
         if (viewType == THE_FIRST_VIEW) {
             return MyViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.recycleview, parent, false), this
+                LayoutInflater.from(context).inflate(R.layout.studentrecycleview, parent, false), this
             )
         }
         return MyViewHolderOne(
@@ -59,11 +59,12 @@ class AddToScheduleTimeSlotAdapter( var removeList:(UiUser) -> Unit) :
 //                    }
 //                }
 //            }
+
         }
 
         class MyViewHolder(private val view: View, adapter: AddToScheduleTimeSlotAdapter) : Superholder(view, adapter) {
-            private val studentTextView: TextView = view.findViewById(R.id.textView)
-            private val button:Button = view.findViewById(R.id.button)
+            private val studentTextView: TextView = view.findViewById(R.id.textViewTwo)
+            private val buttonOne:Button = view.findViewById(R.id.buttonOne)
             override fun fillData(user: UiUser) {
                 if (user is StudentUi) {
                     val data =
@@ -72,23 +73,16 @@ class AddToScheduleTimeSlotAdapter( var removeList:(UiUser) -> Unit) :
                 }
             }
             init {
-                button.setOnClickListener {
+                buttonOne.setOnClickListener {
                     val userPosition = adapter.getItem(bindingAdapterPosition)
                     adapter.removeList(userPosition)
                 }
             }
-
-////            init {
-//                replace.setOnClickListener {
-//                    val userPosition = adapter.getItem(bindingAdapterPosition)
-//                    adapter.replaceList(userPosition)
-//                }
-//            }
         }
 
         class MyViewHolderOne(private val view: View, adapter: AddToScheduleTimeSlotAdapter) : Superholder(view, adapter) {
             private var teacherTextView: TextView = view.findViewById(R.id.textViewOne)
-            private val buttonOne:Button = view.findViewById(R.id.buttonOne)
+            private val button:Button = view.findViewById(R.id.button)
             override fun fillData(user: UiUser) {
                 Log.d("teacheruser", "hyyhhn calle thswyu $user ,")
                 if (user is TeacherUi) {
@@ -97,7 +91,7 @@ class AddToScheduleTimeSlotAdapter( var removeList:(UiUser) -> Unit) :
                 }
             }
             init {
-                buttonOne.setOnClickListener {
+                button.setOnClickListener {
                     val userPosition = adapter.getItem(bindingAdapterPosition)
                     adapter.removeList(userPosition)
                 }

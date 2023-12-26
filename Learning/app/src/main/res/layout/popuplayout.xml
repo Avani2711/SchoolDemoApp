@@ -8,14 +8,4 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-<!--    <EditText-->
-<!--        android:id="@+id/enterId"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Enter Id"-->
-<!--        android:gravity="center"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:ignore="TextFields" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

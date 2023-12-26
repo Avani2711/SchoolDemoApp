@@ -24,8 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.NewActivity"></activity>
-        <activity android:name=".ui.RecycleNewActivity"></activity>
+        <activity android:name=".userlist"></activity>
+        <activity android:name=".RecycleNewActivity"></activity>
+        <activity android:name=".teacherlistnewactivity"></activity>
+        <activity android:name=".StudentListNewActivity"></activity>
     </application>
 
 </manifest>
