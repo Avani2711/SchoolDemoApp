@@ -80,8 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         addStudent.setOnClickListener {
 
-            val dialogView =
-                LayoutInflater.from(this).inflate(R.layout.editstudentlayout, null)
+            val dialogView = LayoutInflater.from(this).inflate(R.layout.editstudentlayout, null)
             val editTextName = dialogView.findViewById<EditText>(R.id.name)
             val editTextDob = dialogView.findViewById<EditText>(R.id.dob)
             val selectTeacher = dialogView.findViewById<TextView>(R.id.select_teacher)
@@ -90,78 +89,75 @@ class MainActivity : AppCompatActivity() {
             builder.setView(dialogView)
             builder.setTitle("Add Student")
 
-            builder.setPositiveButton("SAVE") { dialog, which ->
-                val name = editTextName.text.toString()
-                val dob = editTextDob.text.toString()
-                //val selectTeacher = selectTeacher.text.toString()
+            val dialogViewOne = LayoutInflater.from(this).inflate(R.layout.searchteacherpoplayout, null)
+            val builderOne = AlertDialog.Builder(this)
+            builderOne.setView(dialogViewOne)
+            builderOne.setTitle("Select Teacher")
+            builderOne.setIcon(R.drawable.radio)
 
-                if (name.isNotBlank() && dob.isNotBlank()) {
+            @SuppressLint("SuspiciousIndentation")
+            fun teachersname(): List<String> {
+                val teachers = obj.myList.filterIsInstance<Teacher>()
+                return teachers.map { it.name }
+            }
 
-                    if (selectTeacher != null) {
 
-                        val dialogViewOne =
-                            LayoutInflater.from(this).inflate(R.layout.searchteacherpoplayout, null)
+            val teachersnames = teachersname()
+            val checkedItem = intArrayOf(-1)
+            builderOne.setSingleChoiceItems(
+                teachersnames.toTypedArray(),
+                checkedItem[0]
+            ) { _, which ->
+                checkedItem[0] = which
+                val selectedTeacherName = teachersnames[which]
+                Log.d("SelectedTeacherNameOne", selectedTeacherName)
 
-                        val builderOne = AlertDialog.Builder(this)
-                        builderOne.setView(dialogViewOne)
-                        builderOne.setTitle("Select Teacher")
-                        builderOne.setIcon(R.drawable.radio)
+            }
+            val dialogOne = builderOne.create()
 
-                        @SuppressLint("SuspiciousIndentation")
-                        fun teachersname(): List<String> {
-                            val teachers = obj.myList.filterIsInstance<Teacher>()
-                            return teachers.map { it.name }
+
+            selectTeacher.setOnClickListener {
+                dialogOne.show()
+            }
+
+            builder.setPositiveButton("SAVE") { _, _ ->
+                val selectedTeacherIndex = checkedItem[0]
+                if (selectedTeacherIndex != -1) {
+                    val selectedTeacher = obj.myList.filterIsInstance<Teacher>()[selectedTeacherIndex]
+                    dialogOne.dismiss()
+                    Log.d("selectedteacher", selectTeacher.toString())
+                    val name = editTextName.text.toString()
+                    val dob = editTextDob.text.toString()
+
+                    if (name.isNotBlank() && dob.isNotBlank()) {
+                        val duplicateStudent = obj.myList.find {
+                            it.name.equals(name, ignoreCase = true) && it is Student
                         }
-
-                        val teachersnames = teachersname()
-                        val checkedItem = intArrayOf(-1)
-                        builderOne.setSingleChoiceItems(
-                            teachersnames.toTypedArray(),
-                            checkedItem[0]
-                        ) { _, which ->
-                            checkedItem[0] = which
-                            val selectedTeacherName = teachersnames[which]
-                            Log.d("SelectedTeacherNameOne", selectedTeacherName)
-                        }
-
-                        builderOne.setPositiveButton("SAVE") { _, which ->
-                            val selectedTeacherIndex = checkedItem[0]
-                            if (selectedTeacherIndex != -1) {
-                                val selectedTeacher =
-                                    obj.myList.filterIsInstance<Teacher>()[selectedTeacherIndex]
-
-                                val value = addStudentToList(
-                                    name,
-                                    dob,
-                                    teacherIdMatch = selectedTeacher.idno,
-                                    teacherNameMatch = selectedTeacher.name
-                                )
-                                val intent = Intent(this, teacherlistnewactivity::class.java)
-                                startActivity(intent)
-                            }
-                        }
-                        builderOne.show()
-                    }
-                } else {
-                    val duplicateStudent =
-                        obj.myList.find {
-                            it.name.equals(
+                        if (duplicateStudent != null) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Student already exists!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            val value = addStudentToList(
                                 name,
-                                ignoreCase = true
-                            ) && it.dob == dob
+                                dob,
+                                teacherIdMatch = selectedTeacher.idno,
+                                teacherNameMatch = selectedTeacher.name
+                            )
+                            val intent = Intent(this, teacherlistnewactivity::class.java)
+                            startActivity(intent)
                         }
-                    if (duplicateStudent != null) {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Student already exists!",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
+
                 }
             }
 
-            builder.show()
+            val dialog = builder.create()
+            dialog.show()
         }
+
 
 
 
@@ -183,7 +179,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (name.isNotBlank() && dob.isNotBlank()) {
                     val duplicateTeacher = obj.myList.find {
-                        it.name.equals(name, ignoreCase = true) && it.dob == dob
+                        it.name.equals(name, ignoreCase = true) && it is Teacher
                     }
                     if (duplicateTeacher != null) {
 
