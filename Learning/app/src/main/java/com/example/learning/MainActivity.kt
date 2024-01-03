@@ -1,11 +1,13 @@
 package com.example.learning
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +15,7 @@ import com.example.learning.studentteacherobject.obj
 
 class MainActivity : AppCompatActivity() {
 
-  //var obj = School()
+    //var obj = School()
     private var incrementStudent = 1
     private var incrementTeacher = 1
 
@@ -26,10 +28,10 @@ class MainActivity : AppCompatActivity() {
         val sortStudents: Button = findViewById(R.id.sort_student)
         val matchName: Button = findViewById(R.id.match_name)
         val searchStudents: Button = findViewById(R.id.search_student)
-        val usersList:Button = findViewById(R.id.all_users)
+        val usersList: Button = findViewById(R.id.all_users)
 
 
-        usersList.setOnClickListener{
+        usersList.setOnClickListener {
             val intent = Intent(this, userlist::class.java)
             startActivity(intent)
         }
@@ -49,10 +51,10 @@ class MainActivity : AppCompatActivity() {
             Log.d("teacherNameMatch", student.teacherNameMatch.toString())
             Log.d("mylistsize", obj.myList.size.toString())
 
-                val studentListNewActivity = StudentListNewActivity()
-                studentListNewActivity.av()
+            val studentListNewActivity = StudentListNewActivity()
+            studentListNewActivity.av()
 
-          // av()
+            // av()
             return "$name, $dob ,$teacherIdMatch, $teacherNameMatch"
         }
 
@@ -69,14 +71,10 @@ class MainActivity : AppCompatActivity() {
             obj.addValue(teacher)
             Log.d("teacheridno", teacher.idno.toString())
             Log.d("mylistsize", obj.myList.size.toString())
-            //av()
-            //Log.d("uiteachersize", uiUserList.size.toString())
-            //Log.d("matchstudent", students.toString())
 
             val teacherlistnewactivity = teacherlistnewactivity()
             teacherlistnewactivity.av()
-            Log.d("reach to mylist","hey reached")
-
+            Log.d("reach to mylist", "hey reached")
             return "$name, $idno, $dob,$students"
         }
 
@@ -86,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                 LayoutInflater.from(this).inflate(R.layout.editstudentlayout, null)
             val editTextName = dialogView.findViewById<EditText>(R.id.name)
             val editTextDob = dialogView.findViewById<EditText>(R.id.dob)
-            val editTextTeacher = dialogView.findViewById<EditText>(R.id.search_teacher)
+            val selectTeacher = dialogView.findViewById<TextView>(R.id.select_teacher)
 
             val builder = AlertDialog.Builder(this)
             builder.setView(dialogView)
@@ -95,112 +93,77 @@ class MainActivity : AppCompatActivity() {
             builder.setPositiveButton("SAVE") { dialog, which ->
                 val name = editTextName.text.toString()
                 val dob = editTextDob.text.toString()
-                val searchTeacher = editTextTeacher.text.toString()
+                //val selectTeacher = selectTeacher.text.toString()
 
                 if (name.isNotBlank() && dob.isNotBlank()) {
-                    val duplicateStudent =
-                        obj.myList.find { it.name.equals(name, ignoreCase = true) && it.dob == dob }
-                    if (duplicateStudent != null) {
 
+                    if (selectTeacher != null) {
+
+                        val dialogViewOne =
+                            LayoutInflater.from(this).inflate(R.layout.searchteacherpoplayout, null)
+
+                        val builderOne = AlertDialog.Builder(this)
+                        builderOne.setView(dialogViewOne)
+                        builderOne.setTitle("Select Teacher")
+                        builderOne.setIcon(R.drawable.radio)
+
+                        @SuppressLint("SuspiciousIndentation")
+                        fun teachersname(): List<String> {
+                            val teachers = obj.myList.filterIsInstance<Teacher>()
+                            return teachers.map { it.name }
+                        }
+
+                        val teachersnames = teachersname()
+                        val checkedItem = intArrayOf(-1)
+                        builderOne.setSingleChoiceItems(
+                            teachersnames.toTypedArray(),
+                            checkedItem[0]
+                        ) { _, which ->
+                            checkedItem[0] = which
+                            val selectedTeacherName = teachersnames[which]
+                            Log.d("SelectedTeacherNameOne", selectedTeacherName)
+                        }
+
+                        builderOne.setPositiveButton("SAVE") { _, which ->
+                            val selectedTeacherIndex = checkedItem[0]
+                            if (selectedTeacherIndex != -1) {
+                                val selectedTeacher =
+                                    obj.myList.filterIsInstance<Teacher>()[selectedTeacherIndex]
+
+                                val value = addStudentToList(
+                                    name,
+                                    dob,
+                                    teacherIdMatch = selectedTeacher.idno,
+                                    teacherNameMatch = selectedTeacher.name
+                                )
+                                val intent = Intent(this, teacherlistnewactivity::class.java)
+                                startActivity(intent)
+                            }
+                        }
+                        builderOne.show()
+                    }
+                } else {
+                    val duplicateStudent =
+                        obj.myList.find {
+                            it.name.equals(
+                                name,
+                                ignoreCase = true
+                            ) && it.dob == dob
+                        }
+                    if (duplicateStudent != null) {
                         Toast.makeText(
                             this@MainActivity,
                             "Student already exists!",
                             Toast.LENGTH_SHORT
                         ).show()
-
-                    } else if (searchTeacher.isNotBlank()) {
-
-                        val dialogViewOne =
-                            LayoutInflater.from(this).inflate(R.layout.teacherlist, null)
-
-                        val builder = AlertDialog.Builder(this)
-                        builder.setView(dialogViewOne)
-                        builder.setTitle("SELECT TEACHER")
-
-
-                        val matchTeacher: List<String> = obj.myList
-                            .filterIsInstance<Teacher>()
-                            .filter { it.name.equals(searchTeacher, ignoreCase = true) }
-                            .mapNotNull { it.name }
-
-//                        val matchTeacher = obj.myList.find {
-//                            val result =
-//                                it.name.equals(
-//                                    searchTeacher,
-//                                    ignoreCase = true
-//                                ) && it is Teacher
-//                            result
-//                        }
-
-                        if (matchTeacher != null) {
-                            val value = addStudentToList(
-                                name,
-                                dob,
-                                teacherIdMatch = matchTeacher.idno,
-                                teacherNameMatch = matchTeacher.name
-                            )
-                            Log.d("match", matchTeacher.idno.toString())
-                        }else{
-                            Toast.makeText(this@MainActivity, "NO MATCH FOUND!", Toast.LENGTH_SHORT).show()
-                        }
-                    }else{
-                        Toast.makeText(this@MainActivity, "PLEASE ENTER TEACHER NAME!", Toast.LENGTH_SHORT).show()
                     }
-                } else {
-                    Toast.makeText(this@MainActivity, "PLEASE FILL THE FIELD!", Toast.LENGTH_SHORT).show()
                 }
-                val intent = Intent(this, StudentListNewActivity::class.java)
-                startActivity(intent)
             }
+
             builder.show()
-
-            }
-
+        }
 
 
-
-//            save.setOnClickListener {
-////                val name = editTextName.text.toString()
-////                val dob = editTextDob.text.toString()
-////                val searchTeacher = editTextTeacher.text.toString()
-//
-//                if (name.isNotBlank() && dob.isNotBlank()) {
-//                    val duplicateStudent =
-//                        obj.myList.find { it.name.equals(name, ignoreCase = true) && it.dob == dob }
-//                    if (duplicateStudent != null) {
-//                        accumulatedData += "IT ALREADY EXISTS\n"
-//                        screen.text = accumulatedData
-//                    } else if (searchTeacher.isNotBlank()) {
-//                        val matchTeacher = obj.myList.find {
-//                            val result =
-//                                it.name.equals(searchTeacher, ignoreCase = true) && it is Teacher
-//                            result
-//                        }
-//                        if (matchTeacher != null) {
-//                            val value = addStudentToList(
-//                                name,
-//                                dob,
-//                                teacherIdMatch = matchTeacher.idno,
-//                                teacherNameMatch = matchTeacher.name
-//                            )
-//                            accumulatedData += "$value\n"
-//                            screen.text = accumulatedData
-//                            Log.d("match", matchTeacher.idno.toString())
-//                        }
-//                    }
-//                    editTextName.text.clear()
-//                    editTextDob.text.clear()
-//                    editTextTeacher.text.clear()
-//                    editTextName.visibility = EditText.GONE
-//                    editTextDob.visibility = EditText.GONE
-//                    editTextTeacher.visibility = EditText.GONE
-//                } else {
-//                    accumulatedData += "NO MATCH FOUND\n"
-//                    screen.text = accumulatedData
-//                }
-//                accumulatedData += "PLZ FIND TEACHER\n"
-//                screen.text = accumulatedData
-//            }
 
         addTeacher.setOnClickListener {
 
@@ -238,48 +201,15 @@ class MainActivity : AppCompatActivity() {
                             dob,
                             students = ""
                         )
-//                        val teacherlistnewactivity = teacherlistnewactivity()
-//                        teacherlistnewactivity.av()
                     }
                 }
-                val intent = Intent(this,teacherlistnewactivity::class.java)
+                val intent = Intent(this, teacherlistnewactivity::class.java)
                 startActivity(intent)
             }
             builder.show()
 
         }
 
-
-//
-//            saveOne.setOnClickListener {
-//                val name = editTextName.text.toString()
-//                val dob = editTextDob.text.toString()
-//
-//                if (name.isNotBlank() && dob.isNotBlank()) {
-//                    val duplicateTeacher = obj.myList.find {
-//                        it.name.equals(name, ignoreCase = true) && it.dob == dob
-//                    }
-//                    if (duplicateTeacher != null) {
-//                        // screen.text = "IT ALREADY EXISTS"
-//                        accumulatedData += "IT ALREADY EXISTS\n"
-//                        screen.text = accumulatedData
-//                    } else {
-//                        val value = addTeacherToList(
-//                            name,
-//                            idno = incrementTeacher,
-//                            dob,
-//                            students = ""
-//                        )
-//                        accumulatedData += "$value\n"
-//                        screen.text = accumulatedData
-//                    }
-//                }
-//
-//                editTextName.text.clear()
-//                editTextDob.text.clear()
-//                editTextName.visibility = EditText.GONE
-//                editTextDob.visibility = EditText.GONE
-//            }
 
         matchName.setOnClickListener {
         }

@@ -34,14 +34,14 @@
         app:layout_constraintTop_toBottomOf="@id/name"
         tools:ignore="HardcodedText,LabelFor,TextContrastCheck" />
 
-    <EditText
-        android:id="@+id/search_teacher"
+    <TextView
+        android:id="@+id/select_teacher"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:background="@color/gray"
-        android:hint="Search Teacher Name Here"
+        android:hint="Select Teacher"
         android:inputType=""
         android:textColor="@color/black"
         android:textSize="15sp"

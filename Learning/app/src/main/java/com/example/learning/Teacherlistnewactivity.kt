@@ -14,6 +14,7 @@ class teacherlistnewactivity : AppCompatActivity(){
 
   //  private val obj = School()
 
+      @SuppressLint("SuspiciousIndentation")
       fun av() {
           Log.d("functioncalltwo", "functioncall")
         val uiUserList: MutableList<UiUser> = mutableListOf()
@@ -114,9 +115,9 @@ class teacherlistnewactivity : AppCompatActivity(){
     }
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            setContentView(R.layout.teacherreacycle)
+            setContentView(R.layout.studentteacherrecycle)
 
-            val recyclerView: RecyclerView = findViewById(R.id.teacherRecycle)
+            val recyclerView: RecyclerView = findViewById(R.id.studentTeacherRecycle)
 
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = adapter

@@ -116,21 +116,13 @@ class StudentListNewActivity  : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.studentrecycle)
+        setContentView(R.layout.studentteacherrecycle)
 
-        val recyclerView: RecyclerView = findViewById(R.id.studentRecycle)
+        val recyclerView: RecyclerView = findViewById(R.id.studentTeacherRecycle)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-
-
-//        if (user is Teacher) {
-//            textView.text = "Name:${user.name}\nDob:${user.dob}\nIdno:${user.idno.toString()}"
-//        }
-//
-//        if(user is Student){
-//            textView.text = "Name:${user.name}\nMatchTeacherName:${user.teacherNameMatch}"
-//        }
         av()
+
     }
 }

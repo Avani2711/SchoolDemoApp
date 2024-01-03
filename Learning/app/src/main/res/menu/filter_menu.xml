@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/filter_student"
+        android:title="Student List"/>
+    <item
+        android:id="@+id/filter_teacher"
+        android:title="Teacher List"/>
+
+    <item
+        android:id="@+id/filter_User"
+        android:title="Users List"/>
+
+</menu>

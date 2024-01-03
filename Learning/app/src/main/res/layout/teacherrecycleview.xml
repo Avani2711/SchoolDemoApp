@@ -5,7 +5,7 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
     app:cardCornerRadius="3dp"
     app:cardElevation="7dp">
 
@@ -25,7 +25,7 @@
         android:text=" "
         android:textSize="20sp"
         android:textStyle="bold"
-        android:background="@color/brown"
+        android:background="@color/mid_blue"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
