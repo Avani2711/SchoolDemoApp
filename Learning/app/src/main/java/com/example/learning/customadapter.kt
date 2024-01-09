@@ -63,15 +63,25 @@ class AddToScheduleTimeSlotAdapter( var removeList:(UiUser) -> Unit) :
         }
 
         class MyViewHolder(private val view: View, adapter: AddToScheduleTimeSlotAdapter) : Superholder(view, adapter) {
-            private val studentTextView: TextView = view.findViewById(R.id.textViewTwo)
+            private val studentTextView: TextView = view.findViewById(R.id.nameTextView)
+            private val studentTextViewOne: TextView = view.findViewById(R.id.dobTextView)
+            private val studentTextViewTwo: TextView = view.findViewById(R.id.teacherNameTextView)
             private val buttonOne:Button = view.findViewById(R.id.buttonOne)
             override fun fillData(user: UiUser) {
                 if (user is StudentUi) {
-                    val data =
-                        "${user.name} , ${user.dob} , ${user.idno.toString()}, ${user.teacherIdMatch.toString()},${user.teacherNameMatch}"
-                    studentTextView.text = data
+                    val firstLine = user.name
+                    val secondLine =  user.dob
+                    val thirdLine = user.teacherNameMatch
+//                    val data =
+//                        "${user.name} , ${user.dob} , ${user.idno.toString()}, ${user.teacherIdMatch.toString()},${user.teacherNameMatch}"
+//                    studentTextView.text = data
+                    studentTextView.text = firstLine
+                    studentTextViewOne.text = secondLine
+                    studentTextViewTwo.text = thirdLine
+
                 }
             }
+
             init {
                 buttonOne.setOnClickListener {
                     val userPosition = adapter.getItem(bindingAdapterPosition)
@@ -81,21 +91,36 @@ class AddToScheduleTimeSlotAdapter( var removeList:(UiUser) -> Unit) :
         }
 
         class MyViewHolderOne(private val view: View, adapter: AddToScheduleTimeSlotAdapter) : Superholder(view, adapter) {
-            private var teacherTextView: TextView = view.findViewById(R.id.textViewOne)
+            private val teacherTextView: TextView = view.findViewById(R.id.nameTextView)
+            private val teacherTextViewOne: TextView = view.findViewById(R.id.dobTextView)
+            private val teacherTextViewTwo: TextView = view.findViewById(R.id.studentsNameTextView)
             private val button:Button = view.findViewById(R.id.button)
+
             override fun fillData(user: UiUser) {
                 Log.d("teacheruser", "hyyhhn calle thswyu $user ,")
                 if (user is TeacherUi) {
-                    val data = "${user.name} , ${user.dob} , ${user.idno}, ${user.students}"
-                    teacherTextView.text = data
+                val firstLine = user.name
+                val secondLine = user.dob
+                val thirdLine = user.students
+                teacherTextView.text = firstLine
+                teacherTextViewOne.text = secondLine
+                teacherTextViewTwo.text = thirdLine
+
+//                    val data = "${user.name} , ${user.dob} , ${user.idno}, ${user.students}"
+//                    teacherTextView.text = data
                 }
             }
+
             init {
                 button.setOnClickListener {
                     val userPosition = adapter.getItem(bindingAdapterPosition)
                     adapter.removeList(userPosition)
                 }
             }
+
+
+
+
 
 //            init {
 //                replaceone.setOnClickListener {

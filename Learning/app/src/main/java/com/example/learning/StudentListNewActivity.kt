@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learning.studentteacherobject.obj
@@ -117,7 +119,12 @@ class StudentListNewActivity  : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.studentteacherrecycle)
-
+//        val sortButton: MaterialButton = findViewById(R.id.sort_User)
+//        val filterButton: MaterialButton = findViewById(R.id.filter_User)
+//         sortButton.visibility = View.GONE
+//        filterButton.visibility = View.GONE
+        val childLayout: ConstraintLayout = findViewById(R.id.child_layout)
+        childLayout.visibility = View.GONE
         val recyclerView: RecyclerView = findViewById(R.id.studentTeacherRecycle)
 
         recyclerView.layoutManager = LinearLayoutManager(this)

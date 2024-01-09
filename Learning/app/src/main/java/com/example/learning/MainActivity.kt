@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
             builderOne.setView(dialogViewOne)
             builderOne.setTitle("Select Teacher")
             builderOne.setIcon(R.drawable.radio)
+            builderOne.setCancelable(true)
 
             @SuppressLint("SuspiciousIndentation")
             fun teachersname(): List<String> {
@@ -104,16 +105,19 @@ class MainActivity : AppCompatActivity() {
 
             val teachersnames = teachersname()
             val checkedItem = intArrayOf(-1)
+
+            var dialogOne: AlertDialog? = null
             builderOne.setSingleChoiceItems(
                 teachersnames.toTypedArray(),
                 checkedItem[0]
             ) { _, which ->
+                dialogOne?.dismiss()
                 checkedItem[0] = which
                 val selectedTeacherName = teachersnames[which]
                 Log.d("SelectedTeacherNameOne", selectedTeacherName)
-
+                selectTeacher.text = selectedTeacherName
             }
-            val dialogOne = builderOne.create()
+            dialogOne = builderOne.create()
 
 
             selectTeacher.setOnClickListener {
