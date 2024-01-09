@@ -50,25 +50,34 @@ class teacherlistnewactivity : AppCompatActivity(){
     val adapter = AddToScheduleTimeSlotAdapter { uiUser ->
 
         if (uiUser is TeacherUi) {
-            val teachers = obj.myList.filterIsInstance<Teacher>()
-            if (teachers.size > 1) {
-                val removedTeacher = obj.myList.find { user ->
+            val teachers = studentteacherobject.obj.myList.filterIsInstance<Teacher>()
+            val students = studentteacherobject.obj.myList.filterIsInstance<Student>()
+            if (teachers.size > 1 && students.isEmpty()) {
+                val removedTeacher = studentteacherobject.obj.myList.find { user ->
+                    (user.idno == uiUser.idno) && user is Teacher
+                }
+                Log.d("removedteacher", removedTeacher?.name.toString())
+
+                studentteacherobject.obj.myList.remove(removedTeacher)
+                av()
+
+            }else if (teachers.size > 1 && students.isNotEmpty()) {
+                val removedTeacher = studentteacherobject.obj.myList.find { user ->
                     (user.idno == uiUser.idno) && user is Teacher
                 }
                 Log.d("removedteacher", removedTeacher?.name.toString())
                 if (removedTeacher != null) {
                     val ReassignStudents =
-                        obj.myList.filterIsInstance<Student>().filter { student ->
-                            student.teacherIdMatch == removedTeacher.idno
-                        }
+                        studentteacherobject.obj.myList.filterIsInstance<Student>()
+                            .filter { student ->
+                                student.teacherIdMatch == removedTeacher.idno
+                            }
                     Log.d("ReassignStudents", ReassignStudents.size.toString())
-                    obj.myList.remove(removedTeacher)
+                    studentteacherobject.obj.myList.remove(removedTeacher)
                     av()
 
                     val dialogView =
                         LayoutInflater.from(this).inflate(R.layout.popuplayout, null)
-                    // val enterId = dialogView.findViewById<EditText>(R.id.enterId)
-
                     val builder = AlertDialog.Builder(this)
                     builder.setView(dialogView)
                     builder.setTitle("Select a Teacher")
@@ -77,7 +86,7 @@ class teacherlistnewactivity : AppCompatActivity(){
 
                     @SuppressLint("SuspiciousIndentation")
                     fun teachersname(): List<String> {
-                        val teachers = obj.myList.filterIsInstance<Teacher>()
+                        val teachers = studentteacherobject.obj.myList.filterIsInstance<Teacher>()
                         return teachers.map { it.name }
                     }
 
@@ -97,35 +106,36 @@ class teacherlistnewactivity : AppCompatActivity(){
                         val selectedTeacherIndex = checkedItem[0]
                         if (selectedTeacherIndex != -1) {
                             val selectedTeacher =
-                                obj.myList.filterIsInstance<Teacher>()[selectedTeacherIndex]
+                                studentteacherobject.obj.myList.filterIsInstance<Teacher>()[selectedTeacherIndex]
                             for (student in ReassignStudents) {
                                 student.teacherIdMatch = selectedTeacher.idno
                                 student.teacherNameMatch = selectedTeacher.name
                             }
                             av()
                         }
-                        }
-                        builder.show()
                     }
-                } else {
-                    Toast.makeText(
-                        this@teacherlistnewactivity,
-                        "Can't Remove Last Teacher",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    builder.show()
                 }
-            } else if (uiUser is StudentUi) {
-                val studentToRemove = obj.myList.find { user ->
-                    Log.d("liststuidno", user.idno.toString())
-                    Log.d("studentId", uiUser.idno.toString())
-                    (user.idno == uiUser.idno) && user is Student
-                }
-                if (studentToRemove != null) {
-                    obj.myList.remove(studentToRemove)
-                }
-                av()
+
+            }else{
+                Toast.makeText(
+                    this@teacherlistnewactivity,
+                    "Can't Remove Last Teacher",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+        } else if (uiUser is StudentUi) {
+            val studentToRemove = studentteacherobject.obj.myList.find { user ->
+                Log.d("liststuidno", user.idno.toString())
+                Log.d("studentId", uiUser.idno.toString())
+                (user.idno == uiUser.idno) && user is Student
+            }
+            if (studentToRemove != null) {
+                studentteacherobject.obj.myList.remove(studentToRemove)
+            }
+            av()
         }
+    }
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
